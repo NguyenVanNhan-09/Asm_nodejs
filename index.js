@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-mongoose.connect("mongodb://localhost:27017/dbxuongthayhoang").then(() => {
+mongoose.connect("mongodb://localhost:27017/db_nodejs_xuong").then(() => {
    console.log("Connected susseccful mongodb !");
 });
 app.use(cors());

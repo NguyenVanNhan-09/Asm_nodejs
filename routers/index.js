@@ -1,4 +1,4 @@
-import authRouter from "./auth.js";
+import AuthRouter from "./auth.js";
 import productRouter from "./product.js";
 
 export default function routers(app) {
@@ -6,5 +6,5 @@ export default function routers(app) {
       res.send("home");
    });
    app.use("/products", productRouter);
-   app.use("auth", authRouter);
+   app.use("/auth", AuthRouter);
 }
