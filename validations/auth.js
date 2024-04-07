@@ -8,3 +8,7 @@ export const registerValidate = Joi.object({
    avatar: Joi.string(),
    address: Joi.string(),
 });
+export const loginValidate = Joi.object({
+   email: Joi.string().email().required(),
+   password: Joi.string().min(6).required(),
+});
