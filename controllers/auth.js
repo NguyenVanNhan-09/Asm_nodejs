@@ -1,4 +1,5 @@
 import Auth from "../models/user.js";
+import { hashPassword } from "../utils/hashPassword.js";
 import { registerValidate, loginValidate } from "../validations/auth.js";
 import bcryptjs from "bcryptjs";
 import Jwt from "jsonwebtoken";
@@ -14,17 +15,23 @@ class AuthController {
             const errors = error.details.map((item) => item.message);
             return res.status(400).json({ message: errors });
          }
+
          // 2: kiểm tra email đã tồn tại hay chưa
          const checkEmail = await Auth.findOne({ email });
          if (checkEmail) {
             return res.status(400).json({ message: "Email đã tồn tại" });
          }
          // 3: mã hóa password
-         const salt = await bcryptjs.genSalt(10);
-         const hasPassword = await bcryptjs.hash(password, salt);
+         // const salt = await bcryptjs.genSalt(10);
+         // const hashedPassword = await bcryptjs.hash(password, salt);
+
+         const hashedPassword = await hashPassword(password);
 
          // 4: tạo user mới
-         const user = await Auth.create({ ...req.body, password: hasPassword });
+         const user = await Auth.create({
+            ...req.body,
+            password: hashedPassword,
+         });
          return res.status(201).json({
             message: "đăng ký thành công",
             user,

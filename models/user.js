@@ -2,10 +2,10 @@ import mongoose from "mongoose";
 
 const authSchema = new mongoose.Schema(
    {
-      username: {
-         type: String,
-         unique: true,
-      },
+      // username: {
+      //    type: String,
+      //    unique: true,
+      // },
       email: {
          type: String,
          unique: true,
@@ -14,20 +14,20 @@ const authSchema = new mongoose.Schema(
          type: String,
          required: true,
       },
-      role: {
-         type: String,
-         default: "member",
-      },
-      avatar: {
-         type: String,
-      },
-      address: {
-         type: String,
-      },
-      phoneNumber: {
-         type: String,
-         unique: true,
-      },
+      // role: {
+      //    type: String,
+      //    default: "member",
+      // },
+      // avatar: {
+      //    type: String,
+      // },
+      // address: {
+      //    type: String,
+      // },
+      // phoneNumber: {
+      //    type: String,
+      //    unique: true,
+      // },
    },
    {
       timestamps: true,
