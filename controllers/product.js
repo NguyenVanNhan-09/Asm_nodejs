@@ -1,4 +1,7 @@
+import { errorMessages, successMessages } from "../constants/messages.js";
 import product from "../models/product.js";
+import { validBody } from "../utils/validBody.js";
+import productValidate from "../validations/product.js";
 
 class ProductControllers {
    // Get all
@@ -8,11 +11,11 @@ class ProductControllers {
          const data = await product.find({});
          if (data && data.length > 0) {
             return res.status(200).json({
-               message: "lay danh sach san pham thanh cong",
+               message: successMessages.GET_PRODUCT_SUCCESS,
                data,
             });
          }
-         return res.status(404).json({ message: "khong co san pham nao" });
+         return res.status(404).json({ message: errorMessages.GET_ALL_FAIL });
       } catch (error) {
          next(error);
       }
@@ -23,11 +26,13 @@ class ProductControllers {
          // const { data } = await instance.get(`/products/${req.params.id}`);
          const data = await product.findById(req.params.id);
          if (!data) {
-            return res.status(404).json({ message: "Lấy sản phẩm thất bại" });
+            return res
+               .status(404)
+               .json({ message: errorMessages.GET_DETAIL_FAIL });
          }
          return res
             .status(200)
-            .json({ message: "Lấy sản phẩm thành công", data });
+            .json({ message: successMessages.GET_PRODUCT_SUCCESS, data });
       } catch (error) {
          next(error);
       }
@@ -35,13 +40,17 @@ class ProductControllers {
    // Create
    async createProduct(req, res, next) {
       try {
+         const resultValid = validBody(req.body, productValidate);
+         if (resultValid) {
+            return res.status(400).json({ message: resultValid.errors });
+         }
          // const { data } = await instance.post("/products", req.body);
          const data = await product.create(req.body);
          if (!data) {
-            return res.status(400).json({ message: "them san pham that bai" });
+            return res.status(400).json({ message: errorMessages.CREATE_FAIL });
          }
          return res.status(200).json({
-            message: "Them san pham thanh con",
+            message: successMessages.CREATE_PRODUCT_SUCCESS,
             data,
          });
       } catch (error) {
@@ -51,17 +60,21 @@ class ProductControllers {
    // Update
    async updateProductById(req, res, next) {
       try {
+         const resultValid = validBody(req.body, productValidate);
+         if (resultValid) {
+            return res.status(400).json({ message: resultValid.errors });
+         }
          const data = await product.findByIdAndUpdate(
             `${req.params.id}`,
             req.body,
             { new: true }
          );
          if (!data) {
-            return res.status(400).json({ message: "Cap nhat that bai" });
+            return res.status(400).json({ message: errorMessages.UPDATE_FAIL });
          }
          return res
             .status(200)
-            .json({ message: "Cap nhat san pham thanh cong", data });
+            .json({ message: successMessages.UPDATE_PRODUCT_SUCCESS, data });
       } catch (error) {
          next(error);
       }
@@ -72,12 +85,12 @@ class ProductControllers {
          const data = await product.findByIdAndDelete(req.params.id);
          if (data) {
             return res.status(200).json({
-               message: "Xóa sản phẩm thành công",
+               message: successMessages.DELETE_PRODUCT_SUCCESS,
                data,
             });
          }
          return res.status(400).json({
-            message: "Xóa sản phẩm thất bại",
+            message: errorMessages.DELETE_FAIL,
          });
       } catch (error) {
          next(error);

@@ -1,39 +1,40 @@
-import Auth from "../models/user.js";
-import { hashPassword } from "../utils/hashPassword.js";
-import { registerValidate, loginValidate } from "../validations/auth.js";
-import bcryptjs from "bcryptjs";
 import Jwt from "jsonwebtoken";
+import { errorMessages, successMessages } from "../constants/messages.js";
+import Auth from "../models/user.js";
+import { comparePassword, hashPassword } from "../utils/hashPassword.js";
+import { validBody } from "../utils/validBody.js";
+import { loginValidate, registerValidate } from "../validations/auth.js";
+import dotenv from "dotenv";
+dotenv.config({ path: "./.env.local" });
+const IWT_SECRET = process.env;
 class AuthController {
    async register(req, res) {
       try {
          const { email, password } = req.body;
          // 1: kiểm tra dữ liệu dầu vào
-         const { error } = registerValidate.validate(req.body, {
-            abortEarly: false,
-         });
-         if (error) {
-            const errors = error.details.map((item) => item.message);
-            return res.status(400).json({ message: errors });
+         const resultValid = validBody(req.body, registerValidate);
+         if (resultValid) {
+            return res.status(400).json({ message: resultValid.errors });
          }
 
          // 2: kiểm tra email đã tồn tại hay chưa
          const checkEmail = await Auth.findOne({ email });
          if (checkEmail) {
-            return res.status(400).json({ message: "Email đã tồn tại" });
+            return res
+               .status(400)
+               .json({ message: errorMessages.EMAIL_EXISTED });
          }
+
          // 3: mã hóa password
-         // const salt = await bcryptjs.genSalt(10);
-         // const hashedPassword = await bcryptjs.hash(password, salt);
-
          const hashedPassword = await hashPassword(password);
-
          // 4: tạo user mới
+
          const user = await Auth.create({
             ...req.body,
             password: hashedPassword,
          });
          return res.status(201).json({
-            message: "đăng ký thành công",
+            message: successMessages.REGISTER_SUCCESS,
             user,
          });
          // 5: thông báo thành công
@@ -43,46 +44,34 @@ class AuthController {
    }
    async login(req, res) {
       try {
-         /**
-          * 1: kiểm tra email và password
-          * 2: kiểm tra email có tồn tại không
-          * 3: kiểm tra password có khớp không
-          * 4: tạo token -> JWT
-          * 5: trả về token cho client
-          */
-
          // Bước 1 : Kiểm tra email và password
          const { email, password } = req.body;
-         const { error } = loginValidate.validate(req.body, {
-            abortEarly: false,
-         });
-         if (error) {
-            const errors = error.details.map((item) => item.message);
-            return res.status(400).json({ message: errors });
+
+         const resultValid = validBody(req.body, loginValidate);
+         if (resultValid) {
+            return res.status(400).json({ message: resultValid.errors });
          }
          // Bước 2 : Kiểm tra eamil có tồn tại không
          const userExist = await Auth.findOne({ email });
          if (!userExist) {
             return res.status(400).json({
-               message: "email không tồn tại bank có muốn đăng ký không ???",
+               message: errorMessages.EMAIL_NOT_FOUND,
             });
          }
          // Bước 3: Kiểm tra password có khớp không
-         const checkPassword = await bcryptjs.compare(
-            password, // mật khẩu chưa bị mã hóa ở dữ liệu người dùng nhập vào
-            userExist.password // mật khẩu đã bị mã hóa rồi ở trong db
-         );
-         if (!checkPassword) {
-            return res.status(400).json({ message: "mật khẩu không đúng" });
+         if (!(await comparePassword(password, userExist.password))) {
+            return res
+               .status(400)
+               .json({ message: errorMessages.INVALID_PASSWORD });
          }
          // Bước 4: Tạo token -> JWT
-         const token = Jwt.sign({ id: userExist._id }, "codeofx", {
+         const token = Jwt.sign({ id: userExist._id }, IWT_SECRET, {
             expiresIn: "1h", // hạn sử dụng token này
          });
          // Bước 5: trả về token cho client
          userExist.password = undefined;
-         return res.status(200).json({
-            message: "đăng nhập thành công !!!",
+         return res.status(201).json({
+            message: successMessages.LOGIN_SUCCESS,
             token,
             userExist,
          });
