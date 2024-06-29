@@ -5,7 +5,7 @@ function Home({ data }) {
       <>
          <div class="font-[sans-serif] py-4 mx-auto lg:max-w-7xl sm:max-w-full">
             <h2 class="text-4xl font-extrabold text-gray-800 mb-12">
-               Premium Sneakers
+               List Products
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                {data.map((item) => (
@@ -37,7 +37,7 @@ function Home({ data }) {
                      </div>
 
                      <div class="p-6 bg-white">
-                        <h3 class="text-lg font-bold text-gray-800">
+                        <h3 class="text-lg font-bold text-gray-800 whitespace-nowrap overflow-hidden text-ellipsis">
                            {item.title}
                         </h3>
                         <h4 class="text-lg text-gray-800 font-bold mt-2">

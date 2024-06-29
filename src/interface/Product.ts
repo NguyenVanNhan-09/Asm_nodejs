@@ -8,7 +8,7 @@ export interface TProduct {
    rating: Rating;
 }
 
-export interface Rating {
+interface Rating {
    rate: number;
    count: number;
 }

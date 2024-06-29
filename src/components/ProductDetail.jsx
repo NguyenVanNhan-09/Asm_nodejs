@@ -1,354 +1,201 @@
-// import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import { TProduct } from "./../interface/Products";
-// import instance from "../Api";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import instance from "./../Api/index";
 export default function ProductDetail() {
-   //    const { id } = useParams();
-   //    const [product, setProduct] = (useState < TProduct) | (null > null);
+   const { id } = useParams();
 
-   //    useEffect(() => {
-   //       const getProduct = async () => {
-   //          try {
-   //             const { data } = await instance.get(`/products/${id}`);
-   //             setProduct(data);
-   //          } catch (error) {
-   //             console.log(error.message);
-   //          }
-   //       };
-   //    });
-
+   const [product, setProduct] = useState(null);
+   useEffect(() => {
+      (async () => {
+         try {
+            const { data } = await instance.get(`/products/${id}`);
+            setProduct(data);
+         } catch (error) {
+            console.log(error.message);
+         }
+      })();
+   }, [id]);
    return (
       <>
-         <div class="font-sans bg-gray-700">
-            <div class="p-4 lg:max-w-7xl max-w-2xl max-lg:mx-auto">
-               <div class="grid items-start grid-cols-1 lg:grid-cols-5 gap-12">
-                  <div class="lg:col-span-3 w-full lg:sticky top-0 text-center">
-                     <div class="bg-gray-800 px-4 py-12 rounded-xl">
+         <div class="font-sans p-8 tracking-wide max-lg:max-w-2xl mx-auto">
+            <div class="grid items-start grid-cols-1 lg:grid-cols-2 gap-10">
+               <div class="space-y-4 text-center lg:sticky top-8">
+                  <div class="bg-gray-100 p-4 flex items-center sm:h-[380px] rounded-lg">
+                     <img
+                        src={product?.image}
+                        alt="Product"
+                        class="w-full max-h-full object-contain object-top"
+                     />
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-4">
+                     <div class="bg-gray-100 p-4 flex items-center rounded-lg sm:h-[182px]">
                         <img
-                           src="https://readymadeui.com/images/coffee2.webp"
+                           src={product?.image}
                            alt="Product"
-                           class="w-9/12 rounded object-cover mx-auto"
+                           class="w-full max-h-full object-contain object-top"
                         />
                      </div>
 
-                     <div class="mt-4 flex flex-wrap justify-center gap-4 mx-auto">
-                        <div class="w-[90px] h-20 flex items-cemter justify-center bg-gray-800 rounded-xl p-4 cursor-pointer">
-                           <img
-                              src="https://readymadeui.com/images/coffee3.webp"
-                              alt="Product2"
-                              class="w-full object-contain"
+                     <div class="bg-gray-100 p-4 flex items-center rounded-lg sm:h-[182px]">
+                        <img
+                           src={product?.image}
+                           alt="Product"
+                           class="w-full max-h-full object-contain object-top"
+                        />
+                     </div>
+                  </div>
+               </div>
+
+               <div class="max-w-xl">
+                  <div>
+                     <h2 class="text-2xl font-extrabold text-gray-800">
+                        {product?.title}
+                     </h2>
+                     <p class="text-sm text-gray-600 mt-2">
+                        {product?.category}
+                     </p>
+                  </div>
+
+                  <div class="flex space-x-1 mt-4">
+                     <svg
+                        class="w-5 fill-yellow-400"
+                        viewBox="0 0 14 13"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                     >
+                        <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                     </svg>
+                     <svg
+                        class="w-5 fill-yellow-400"
+                        viewBox="0 0 14 13"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                     >
+                        <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                     </svg>
+                     <svg
+                        class="w-5 fill-yellow-400"
+                        viewBox="0 0 14 13"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                     >
+                        <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                     </svg>
+                     <svg
+                        class="w-5 fill-yellow-400"
+                        viewBox="0 0 14 13"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                     >
+                        <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                     </svg>
+                     <svg
+                        class="w-5 fill-[#CED5D8]"
+                        viewBox="0 0 14 13"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                     >
+                        <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
+                     </svg>
+
+                     <button
+                        type="button"
+                        class="px-2.5 py-1.5 bg-gray-100 text-xs text-gray-800 rounded-lg flex items-center !ml-4"
+                     >
+                        <svg
+                           xmlns="http://www.w3.org/2000/svg"
+                           class="w-3 mr-1"
+                           fill="currentColor"
+                           viewBox="0 0 32 32"
+                        >
+                           <path
+                              d="M14.236 21.954h-3.6c-.91 0-1.65-.74-1.65-1.65v-7.201c0-.91.74-1.65 1.65-1.65h3.6a.75.75 0 0 1 .75.75v9.001a.75.75 0 0 1-.75.75zm-3.6-9.001a.15.15 0 0 0-.15.15v7.2a.15.15 0 0 0 .15.151h2.85v-7.501z"
+                              data-original="#000000"
                            />
-                        </div>
-                        <div class="w-[90px] h-20 flex items-cemter justify-center bg-gray-800 rounded-xl p-4 cursor-pointer">
-                           <img
-                              src="https://readymadeui.com/images/coffee4.webp"
-                              alt="Product2"
-                              class="w-full object-contain"
+                           <path
+                              d="M20.52 21.954h-6.284a.75.75 0 0 1-.75-.75v-9.001c0-.257.132-.495.348-.633.017-.011 1.717-1.118 2.037-3.25.18-1.184 1.118-2.089 2.28-2.201a2.557 2.557 0 0 1 2.17.868c.489.56.71 1.305.609 2.042a9.468 9.468 0 0 1-.678 2.424h.943a2.56 2.56 0 0 1 1.918.862c.483.547.708 1.279.617 2.006l-.675 5.401a2.565 2.565 0 0 1-2.535 2.232zm-5.534-1.5h5.533a1.06 1.06 0 0 0 1.048-.922l.675-5.397a1.046 1.046 0 0 0-1.047-1.182h-2.16a.751.751 0 0 1-.648-1.13 8.147 8.147 0 0 0 1.057-3 1.059 1.059 0 0 0-.254-.852 1.057 1.057 0 0 0-.795-.365c-.577.052-.964.435-1.04.938-.326 2.163-1.71 3.507-2.369 4.036v7.874z"
+                              data-original="#000000"
                            />
-                        </div>
-                        <div class="w-[90px] h-20 flex items-cemter justify-center bg-gray-800 rounded-xl p-4 cursor-pointer">
-                           <img
-                              src="https://readymadeui.com/images/coffee5.webp"
-                              alt="Product2"
-                              class="w-full object-contain"
+                           <path
+                              d="M4 31.75a.75.75 0 0 1-.612-1.184c1.014-1.428 1.643-2.999 1.869-4.667.032-.241.055-.485.07-.719A14.701 14.701 0 0 1 1.25 15C1.25 6.867 7.867.25 16 .25S30.75 6.867 30.75 15 24.133 29.75 16 29.75a14.57 14.57 0 0 1-5.594-1.101c-2.179 2.045-4.61 2.81-6.281 3.09A.774.774 0 0 1 4 31.75zm12-30C8.694 1.75 2.75 7.694 2.75 15c0 3.52 1.375 6.845 3.872 9.362a.75.75 0 0 1 .217.55c-.01.373-.042.78-.095 1.186A11.715 11.715 0 0 1 5.58 29.83a10.387 10.387 0 0 0 3.898-2.37l.231-.23a.75.75 0 0 1 .84-.153A13.072 13.072 0 0 0 16 28.25c7.306 0 13.25-5.944 13.25-13.25S23.306 1.75 16 1.75z"
+                              data-original="#000000"
                            />
-                        </div>
-                        <div class="w-[90px] h-20 flex items-cemter justify-center bg-gray-800 rounded-xl p-4 cursor-pointer">
-                           <img
-                              src="https://readymadeui.com/images/coffee6.webp"
-                              alt="Product2"
-                              class="w-full object-contain"
-                           />
-                        </div>
+                        </svg>
+                        87 Reviews
+                     </button>
+                  </div>
+
+                  <div class="mt-4">
+                     <h3 class="text-gray-800 text-4xl font-bold">
+                        ${product?.price}
+                     </h3>
+                  </div>
+
+                  <div class="mt-8">
+                     <h3 class="text-xl font-bold text-gray-800">
+                        Choose a Size
+                     </h3>
+                     <div class="flex flex-wrap gap-4 mt-4">
+                        <button
+                           type="button"
+                           class="w-10 h-10 border hover:border-yellow-400 font-semibold text-sm rounded-lg flex items-center justify-center shrink-0"
+                        >
+                           SM
+                        </button>
+                        <button
+                           type="button"
+                           class="w-10 h-10 border hover:border-yellow-400 border-yellow-400 font-semibold text-sm rounded-lg flex items-center justify-center shrink-0"
+                        >
+                           MD
+                        </button>
+                        <button
+                           type="button"
+                           class="w-10 h-10 border hover:border-yellow-400 font-semibold text-sm rounded-lg flex items-center justify-center shrink-0"
+                        >
+                           LG
+                        </button>
+                        <button
+                           type="button"
+                           class="w-10 h-10 border hover:border-yellow-400 font-semibold text-sm rounded-lg flex items-center justify-center shrink-0"
+                        >
+                           XL
+                        </button>
                      </div>
                   </div>
 
-                  <div class="lg:col-span-2">
-                     <h2 class="text-3xl font-semibold text-white">
-                        Espresso Elegante | Coffee
-                     </h2>
+                  <div class="flex flex-wrap gap-4 mt-8">
+                     <button
+                        type="button"
+                        class="min-w-[200px] px-4 py-3 bg-yellow-400 hover:bg-yellow-500 text-white text-sm font-semibold rounded-lg"
+                     >
+                        Buy now
+                     </button>
+                     <button
+                        type="button"
+                        class="min-w-[200px] px-4 py-2.5 border border-yellow-400 bg-transparent hover:bg-gray-50 text-gray-800 text-sm font-semibold rounded-lg"
+                     >
+                        Add to cart
+                     </button>
+                  </div>
 
-                     <div class="flex space-x-2 mt-4">
-                        <svg
-                           class="w-[18px] fill-yellow-300"
-                           viewBox="0 0 14 13"
-                           fill="none"
-                           xmlns="http://www.w3.org/2000/svg"
-                        >
-                           <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                        </svg>
-                        <svg
-                           class="w-[18px] fill-yellow-300"
-                           viewBox="0 0 14 13"
-                           fill="none"
-                           xmlns="http://www.w3.org/2000/svg"
-                        >
-                           <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                        </svg>
-                        <svg
-                           class="w-[18px] fill-yellow-300"
-                           viewBox="0 0 14 13"
-                           fill="none"
-                           xmlns="http://www.w3.org/2000/svg"
-                        >
-                           <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                        </svg>
-                        <svg
-                           class="w-[18px] fill-yellow-300"
-                           viewBox="0 0 14 13"
-                           fill="none"
-                           xmlns="http://www.w3.org/2000/svg"
-                        >
-                           <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                        </svg>
-                        <svg
-                           class="w-[18px] fill-[#CED5D8]"
-                           viewBox="0 0 14 13"
-                           fill="none"
-                           xmlns="http://www.w3.org/2000/svg"
-                        >
-                           <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                        </svg>
-                        <h4 class="text-white text-base">500 Reviews</h4>
-                     </div>
-
-                     <div class="flex flex-wrap gap-4 mt-8">
-                        <p class="text-white text-4xl font-semibold">$12</p>
-                        <p class="text-gray-400 text-base">
-                           <strike>$16</strike>{" "}
-                           <span class="text-sm ml-1">Tax included</span>
-                        </p>
-                     </div>
-
-                     <div class="flex flex-wrap gap-4 mt-8">
-                        <button
-                           type="button"
-                           class="min-w-[200px] px-4 py-3 bg-yellow-300 hover:bg-yellow-400 text-black text-sm font-semibold rounded"
-                        >
-                           Buy now
-                        </button>
-                        <button
-                           type="button"
-                           class="min-w-[200px] px-4 py-2.5 border border-yellow-300 bg-transparent text-yellow-300 text-sm font-semibold rounded"
-                        >
-                           Add to cart
-                        </button>
-                     </div>
+                  <div class="mt-8">
+                     <ul class="flex border-b">
+                        <li class="text-gray-800 font-bold text-sm bg-gray-100 py-3 px-8 border-b-2 border-yellow-400 cursor-pointer transition-all">
+                           Description
+                        </li>
+                        <li class="text-gray-600 font-bold text-sm hover:bg-gray-100 py-3 px-8 cursor-pointer transition-all">
+                           Reviews
+                        </li>
+                     </ul>
 
                      <div class="mt-8">
-                        <h3 class="text-xl font-semibold text-white">
-                           About the coffee
+                        <h3 class="text-lg font-bold text-gray-800">
+                           Product Description
                         </h3>
-                        <ul class="space-y-3 list-disc mt-4 pl-4 text-sm text-white">
-                           <li>
-                              A cup of coffee is a beverage essential because of
-                              its timeless appeal
-                           </li>
-                           <li>
-                              Easy to prepare. It can be brewed using various
-                              methods, from drip machines to manual pour-overs.
-                           </li>
-                           <li>
-                              Available in various sizes, from a standard
-                              espresso shot to a large Americano, catering to
-                              different preferences.
-                           </li>
-                           <li>
-                              You can customize your coffee by adding cream,
-                              sugar, or flavorings to suit your taste
-                              preferences.
-                           </li>
-                        </ul>
-                     </div>
-
-                     <div class="mt-8">
-                        <ul class="flex">
-                           <li class="text-white font-semibold text-sm bg-gray-800 py-3 px-8 border-b-2 border-yellow-300 cursor-pointer transition-all">
-                              Reviews
-                           </li>
-                           <li class="text-white font-semibold text-sm py-3 px-8 cursor-pointer">
-                              Sellter
-                           </li>
-                        </ul>
-
-                        <div class="mt-8">
-                           <h3 class="text-xl font-semibold text-white">
-                              Reviews(10)
-                           </h3>
-
-                           <div class="space-y-3 mt-4">
-                              <div class="flex items-center">
-                                 <p class="text-sm text-white font-semibold">
-                                    5.0
-                                 </p>
-                                 <svg
-                                    class="w-5 fill-yellow-300 ml-1"
-                                    viewBox="0 0 14 13"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                 >
-                                    <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                                 </svg>
-                                 <div class="bg-gray-400 rounded w-full h-2 ml-3">
-                                    <div class="w-2/3 h-full rounded bg-yellow-300"></div>
-                                 </div>
-                                 <p class="text-sm text-white font-semibold ml-3">
-                                    66%
-                                 </p>
-                              </div>
-
-                              <div class="flex items-center">
-                                 <p class="text-sm text-white font-semibold">
-                                    4.0
-                                 </p>
-                                 <svg
-                                    class="w-5 fill-yellow-300 ml-1"
-                                    viewBox="0 0 14 13"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                 >
-                                    <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                                 </svg>
-                                 <div class="bg-gray-400 rounded w-full h-2 ml-3">
-                                    <div class="w-1/3 h-full rounded bg-yellow-300"></div>
-                                 </div>
-                                 <p class="text-sm text-white font-semibold ml-3">
-                                    33%
-                                 </p>
-                              </div>
-
-                              <div class="flex items-center">
-                                 <p class="text-sm text-white font-semibold">
-                                    3.0
-                                 </p>
-                                 <svg
-                                    class="w-5 fill-yellow-300 ml-1"
-                                    viewBox="0 0 14 13"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                 >
-                                    <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                                 </svg>
-                                 <div class="bg-gray-400 rounded w-full h-2 ml-3">
-                                    <div class="w-1/6 h-full rounded bg-yellow-300"></div>
-                                 </div>
-                                 <p class="text-sm text-white font-semibold ml-3">
-                                    16%
-                                 </p>
-                              </div>
-
-                              <div class="flex items-center">
-                                 <p class="text-sm text-white font-semibold">
-                                    2.0
-                                 </p>
-                                 <svg
-                                    class="w-5 fill-yellow-300 ml-1"
-                                    viewBox="0 0 14 13"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                 >
-                                    <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                                 </svg>
-                                 <div class="bg-gray-400 rounded w-full h-2 ml-3">
-                                    <div class="w-1/12 h-full rounded bg-yellow-300"></div>
-                                 </div>
-                                 <p class="text-sm text-white font-semibold ml-3">
-                                    8%
-                                 </p>
-                              </div>
-
-                              <div class="flex items-center">
-                                 <p class="text-sm text-white font-semibold">
-                                    1.0
-                                 </p>
-                                 <svg
-                                    class="w-5 fill-yellow-300 ml-1"
-                                    viewBox="0 0 14 13"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                 >
-                                    <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                                 </svg>
-                                 <div class="bg-gray-400 rounded w-full h-2 ml-3">
-                                    <div class="w-[6%] h-full rounded bg-yellow-300"></div>
-                                 </div>
-                                 <p class="text-sm text-white font-semibold ml-3">
-                                    6%
-                                 </p>
-                              </div>
-                           </div>
-                        </div>
-
-                        <div class="flex items-start mt-8">
-                           <img
-                              src="https://readymadeui.com/team-2.webp"
-                              class="w-12 h-12 rounded-full border-2 border-white"
-                           />
-
-                           <div class="ml-3">
-                              <h4 class="text-sm font-semibold text-white">
-                                 John Doe
-                              </h4>
-                              <div class="flex space-x-1 mt-1">
-                                 <svg
-                                    class="w-4 fill-yellow-300"
-                                    viewBox="0 0 14 13"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                 >
-                                    <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                                 </svg>
-                                 <svg
-                                    class="w-4 fill-yellow-300"
-                                    viewBox="0 0 14 13"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                 >
-                                    <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                                 </svg>
-                                 <svg
-                                    class="w-4 fill-yellow-300"
-                                    viewBox="0 0 14 13"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                 >
-                                    <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                                 </svg>
-                                 <svg
-                                    class="w-4 fill-[#CED5D8]"
-                                    viewBox="0 0 14 13"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                 >
-                                    <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                                 </svg>
-                                 <svg
-                                    class="w-4 fill-[#CED5D8]"
-                                    viewBox="0 0 14 13"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                 >
-                                    <path d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z" />
-                                 </svg>
-                                 <p class="text-xs !ml-2 font-semibold text-white">
-                                    2 mins ago
-                                 </p>
-                              </div>
-                              <p class="text-xs mt-4 text-white">
-                                 The service was amazing. I never had to wait
-                                 that long for my food. The staff was friendly
-                                 and attentive, and the delivery was
-                                 impressively prompt.
-                              </p>
-                           </div>
-                        </div>
-
-                        <button
-                           type="button"
-                           class="w-full mt-8 px-4 py-2.5 bg-transparent border border-yellow-300 text-yellow-300 font-semibold rounded"
-                        >
-                           Read all reviews
-                        </button>
+                        <p class="text-sm text-gray-600 mt-4">
+                           {product?.description}
+                        </p>
                      </div>
                   </div>
                </div>
