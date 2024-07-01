@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Contact from "../page/Contact";
@@ -7,6 +7,7 @@ import instance from "./../Api/index";
 import { useEffect, useState } from "react";
 import ProductDetail from "../components/ProductDetail";
 import Banner from "./../components/Banner";
+import NotFound from "./../page/NotFound";
 
 export default function Client() {
    const [products, setProducts] = useState([]);
@@ -24,19 +25,24 @@ export default function Client() {
       })();
    }, []);
 
-   const hideHeaderFooter = location.pathname.includes("home/detail");
+   const hideHeaderFooter = location.pathname.includes("*");
+   const hideBanner =
+      location.pathname.includes("home/detail") ||
+      location.pathname.includes("contact");
 
    return (
       <>
          <div className="flex flex-col justify-between min-h-[100vh]">
-            <Header />
-            {!hideHeaderFooter && <Banner />}
+            {!hideHeaderFooter && <Header />}
+            {!hideBanner && <Banner />}
             <Routes>
+               <Route path="/" element={<Navigate to="home" />} />
                <Route path="home" element={<Home data={products} />} />
                <Route path="home/detail/:id" element={<ProductDetail />} />
                <Route path="contact" element={<Contact />} />
+               <Route path="*" element={<NotFound />} />
             </Routes>
-            <Footer />
+            {!hideHeaderFooter && <Footer />}
          </div>
       </>
    );
