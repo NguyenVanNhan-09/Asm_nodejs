@@ -10,17 +10,17 @@ function Dashboard() {
                <ul class="mt-6 space-y-1">
                   <li>
                      <a
-                        href="#"
+                        href="/admin/home"
                         class="block rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700"
                      >
-                        General
+                        Home
                      </a>
                   </li>
 
                   <li>
                      <details class="group [&_summary::-webkit-details-marker]:hidden">
                         <summary class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
-                           <span class="text-sm font-medium"> Teams </span>
+                           <span class="text-sm font-medium"> Products </span>
 
                            <span class="shrink-0 transition duration-300 group-open:-rotate-180">
                               <svg
@@ -41,10 +41,10 @@ function Dashboard() {
                         <ul class="mt-2 space-y-1 px-4">
                            <li>
                               <a
-                                 href="#"
+                                 href="/admin/products-list"
                                  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                               >
-                                 Banned Users
+                                 List Products
                               </a>
                            </li>
 
@@ -53,7 +53,7 @@ function Dashboard() {
                                  href="#"
                                  class="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                               >
-                                 Calendar
+                                 Category
                               </a>
                            </li>
                         </ul>

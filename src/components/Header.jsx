@@ -57,12 +57,13 @@ export default function Header() {
                         </Link>
                      </li>
                      <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
-                        <a
+                        <Link
+                           to={"/admin"}
                            href="javascript:void(0)"
                            class="hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]"
                         >
                            Team
-                        </a>
+                        </Link>
                      </li>
                      <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
                         <a

@@ -11,6 +11,7 @@ function Home({ data }) {
                {data.map((item) => (
                   <Link
                      to={`detail/${item.id}`}
+                     key={item.id}
                      href="home/client/${{item.id}}"
                      class="bg-gray-50 shadow-md overflow-hidden rounded-lg cursor-pointer hover:-translate-y-2 transition-all relative"
                   >
