@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import Dashboard from "../page/dashboard";
 import ListProducts from "../page/ListProduct";
@@ -7,11 +6,6 @@ import instance from "./../Api/index";
 import HomeAdmin from "../page/HomeAdmin";
 import AddProduct from "../page/AddProduct";
 import UpdateProduct from "../page/UpdateProduct";
-=======
-import { Navigate, Route, Routes } from "react-router-dom";
-import Dashboard from "../page/dashboard";
-import ListProducts from "../page/ListProduct";
->>>>>>> f8751783e293e378ea70103c8d099700fd700556
 
 export default function Admin() {
    const navi = useNavigate();
@@ -82,7 +76,6 @@ export default function Admin() {
             </div>
             <div class="h-32 rounded-lg bg-gray-200 lg:col-span-3">
                <Routes>
-<<<<<<< HEAD
                   <Route path="/" element={<Navigate to="home" />} />
                   <Route path="/home" element={<HomeAdmin />} />
                   <Route
@@ -100,10 +93,6 @@ export default function Admin() {
                      path="/products-update/:id"
                      element={<UpdateProduct onEdit={hanldeUpdate} />}
                   />
-=======
-                  <Route path="/" element={<Navigate to="products-list" />} />
-                  <Route path="products-list" element={<ListProducts />} />
->>>>>>> f8751783e293e378ea70103c8d099700fd700556
                </Routes>
             </div>
          </div>
