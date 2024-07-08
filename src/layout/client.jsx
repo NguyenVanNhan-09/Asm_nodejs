@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import ProductDetail from "../components/ProductDetail";
 import Banner from "./../components/Banner";
 import NotFound from "./../page/NotFound";
+import Register from "../page/Register";
+import Login from "../page/Login";
 
 export default function Client() {
    const [products, setProducts] = useState([]);
@@ -28,7 +30,8 @@ export default function Client() {
    const hideHeaderFooter = location.pathname.includes("*");
    const hideBanner =
       location.pathname.includes("home/detail") ||
-      location.pathname.includes("contact");
+      location.pathname.includes("register") ||
+      location.pathname.includes("login");
 
    return (
       <>
@@ -40,6 +43,8 @@ export default function Client() {
                <Route path="home" element={<Home data={products} />} />
                <Route path="home/detail/:id" element={<ProductDetail />} />
                <Route path="contact" element={<Contact />} />
+               <Route path="register" element={<Register />} />
+               <Route path="login" element={<Login />} />
                <Route path="*" element={<NotFound />} />
             </Routes>
             {!hideHeaderFooter && <Footer />}
