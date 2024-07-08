@@ -21,7 +21,7 @@ function Login() {
          try {
             const { data } = await instance.post("login", user);
             if (data.user) {
-               console.log(data.user);
+               localStorage.setItem("user", JSON.stringify(data));
                if (confirm("Login successfully")) {
                   navi("/");
                }
