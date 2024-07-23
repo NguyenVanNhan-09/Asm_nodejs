@@ -3,30 +3,15 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Contact from "../page/Contact";
 import Home from "../page/Home";
-import instance from "./../Api/index";
-import { useEffect, useState } from "react";
 import ProductDetail from "../components/ProductDetail";
 import Banner from "./../components/Banner";
 import NotFound from "./../page/NotFound";
 import Register from "../page/Register";
 import Login from "../page/Login";
+import ProductContext from "../context/ProductContext";
 
 export default function Client() {
-   const [products, setProducts] = useState([]);
    const location = useLocation();
-
-   useEffect(() => {
-      (async () => {
-         try {
-            const { data } = await instance.get("/products");
-            // console.log(data);
-            setProducts(data);
-         } catch (error) {
-            console.log(error.message);
-         }
-      })();
-   }, []);
-
    const hideHeaderFooter = location.pathname.includes("*");
    const hideBanner =
       location.pathname.includes("home/detail") ||
@@ -40,7 +25,7 @@ export default function Client() {
             {!hideBanner && <Banner />}
             <Routes>
                <Route path="/" element={<Navigate to="home" />} />
-               <Route path="home" element={<Home data={products} />} />
+               <Route path="home" element={<Home />} />
                <Route path="home/detail/:id" element={<ProductDetail />} />
                <Route path="contact" element={<Contact />} />
                <Route path="register" element={<Register />} />

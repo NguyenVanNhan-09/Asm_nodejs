@@ -1,10 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
+   const navi = useNavigate();
    const email = JSON.parse(localStorage.getItem("user"))?.user?.email;
    const handleRemove = () => {
       localStorage.removeItem("user");
-      window.location.reload();
+      alert("Logout successful!");
+      navi("/login");
+   };
+   const checkAccount = () => {
+      if (email) {
+         alert("Vui lòng đăng nhập để vào admin");
+      }
    };
    return (
       <>
@@ -66,6 +73,7 @@ export default function Header() {
                            to={"/admin/home"}
                            href="javascript:void(0)"
                            class="hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]"
+                           onClick={() => checkAccount()}
                         >
                            Admin
                         </Link>

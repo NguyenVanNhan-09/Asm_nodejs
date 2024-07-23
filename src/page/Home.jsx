@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { productCT } from "../context/ProductContext";
+import { useContext } from "react";
 
-function Home({ data }) {
+function Home() {
+   const { products } = useContext(productCT);
    return (
       <>
          <div class="font-[sans-serif] py-4 mx-auto lg:max-w-7xl sm:max-w-full">
@@ -8,7 +11,7 @@ function Home({ data }) {
                List Products
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-               {data.map((item) => (
+               {products.map((item) => (
                   <Link
                      to={`detail/${item.id}`}
                      key={item.id}

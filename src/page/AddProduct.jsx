@@ -1,6 +1,9 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useContext } from "react";
+import { productCT } from "../context/ProductContext";
+import { useNavigate } from "react-router-dom";
 
 const productschema = z.object({
    title: z.string().nonempty("Tiêu đề là bắt buộc").min(5),
@@ -10,14 +13,18 @@ const productschema = z.object({
    description: z.string(),
 });
 
-function AddProduct({ onAdd }) {
+function AddProduct() {
+   const navi = useNavigate();
+   const { handleAddProduct } = useContext(productCT);
    const {
       register,
       handleSubmit,
       formState: { errors },
    } = useForm({ resolver: zodResolver(productschema) });
-   const onSubmit = (data) => {
-      onAdd(data);
+   const onSubmit = async (data) => {
+      await handleAddProduct(data);
+      navi("/admin/products-list");
+      // location.reload();
    };
    return (
       <>

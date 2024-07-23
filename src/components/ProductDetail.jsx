@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import instance from "./../Api/index";
+import { GetById } from "../service/product";
 export default function ProductDetail() {
    const { id } = useParams();
 
-   const [product, setProduct] = useState(null);
+   const [product, setProduct] = useState({} | null);
    useEffect(() => {
-      (async () => {
-         try {
-            const { data } = await instance.get(`/products/${id}`);
+      const fetchProducts = async () => {
+         const data = await GetById(id);
+         if (data) {
             setProduct(data);
-         } catch (error) {
-            console.log(error.message);
          }
-      })();
+      };
+      fetchProducts();
    }, [id]);
    return (
       <>

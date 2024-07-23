@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useEffect, useState } from "react";
-import instance from "../Api";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { productCT } from "../context/ProductContext";
+import { GetById } from "../service/product";
 
 const productschema = z.object({
    title: z.string().nonempty("Tiêu đề là bắt buộc").min(5),
@@ -15,24 +16,26 @@ const productschema = z.object({
 
 function UpdateProduct({ onEdit }) {
    const { id } = useParams();
-   const [product, setProduct] = useState();
+   const { handleUpdate } = useContext(productCT);
+   const navi = useNavigate();
+   const [product, setProduct] = useState({} | null);
    useEffect(() => {
-      (async () => {
-         try {
-            const { data } = await instance.get("/products/" + id);
+      const fetchProducts = async () => {
+         const data = await GetById(id);
+         if (data) {
             setProduct(data);
-         } catch (error) {
-            console.log(error.message);
          }
-      })();
+      };
+      fetchProducts();
    }, [id]);
    const {
       register,
       handleSubmit,
       formState: { errors },
    } = useForm({ resolver: zodResolver(productschema) });
-   const onSubmit = (data) => {
-      onEdit({ ...data, id });
+   const onSubmit = async (data) => {
+      await handleUpdate(id, data);
+      navi("/admin/products-list");
    };
    return (
       <>

@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { productCT } from "../context/ProductContext";
+import { useContext } from "react";
 
-function ListProducts({ data, onDel }) {
+function ListProducts() {
+   const { products, handleDelete } = useContext(productCT);
    return (
       <>
          <div class="text-center p-10">
@@ -70,7 +73,7 @@ function ListProducts({ data, onDel }) {
                            </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-300 ">
-                           {data.map((item) => (
+                           {products.map((item) => (
                               <tr class="bg-white transition-all duration-500 hover:bg-gray-50">
                                  <td class="">
                                     <div class="flex items-center py-5 px-5 ">
@@ -122,7 +125,7 @@ function ListProducts({ data, onDel }) {
                                        </svg>
                                     </Link>
                                     <button
-                                       onClick={() => onDel(item.id)}
+                                       onClick={() => handleDelete(item.id)}
                                        class="p-2 rounded-full bg-white group transition-all duration-500 hover:bg-red-600 flex item-center"
                                     >
                                        <svg
